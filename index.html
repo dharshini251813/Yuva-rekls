@@ -1,0 +1,961 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffe4ef">
+<title>For Dude & Rekla 💗</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:Georgia,"Times New Roman",serif;
+  text-align:center;
+  color:#75405f;
+  background:linear-gradient(135deg,#ffe0ed,#e9e0ff,#fff0df);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+button{font:inherit;cursor:pointer}
+
+.screen{
+  display:none;
+  min-height:100vh;
+  min-height:100svh;
+  padding:70px 17px 35px;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  position:relative;
+  z-index:1;
+}
+
+.screen.active{display:flex;animation:fade .7s ease}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+h1{
+  font-size:clamp(2.3rem,9vw,3.7rem);
+  color:#b52f70;
+  margin:15px 0;
+}
+
+h2{
+  font-size:clamp(1.6rem,6vw,2.2rem);
+  color:#b52f70;
+  margin-bottom:18px;
+}
+
+p{font-size:1rem;line-height:1.85}
+.sub{max-width:470px;margin:0 auto 18px}
+
+.eyebrow{
+  letter-spacing:3px;
+  font-size:.75rem;
+  text-transform:uppercase;
+  margin-bottom:14px;
+}
+
+.btn{
+  border:0;
+  border-radius:28px;
+  padding:14px 23px;
+  margin:12px 4px;
+  color:white;
+  background:linear-gradient(135deg,#ff9cbd,#d94d89);
+  box-shadow:0 7px 20px #b83e7125;
+  transition:transform .2s;
+}
+
+.btn:active{transform:scale(.96)}
+
+.music{
+  position:fixed;
+  right:12px;
+  top:12px;
+  z-index:20;
+  padding:10px 13px;
+  border-radius:25px;
+  border:1px solid #f2bed4;
+  background:#ffffffed;
+  color:#a52f68;
+}
+
+#hearts{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:0;
+}
+
+.heart{
+  position:absolute;
+  bottom:-40px;
+  animation:floatUp 8s linear forwards;
+}
+
+@keyframes floatUp{
+  0%{transform:translateY(0);opacity:0}
+  15%{opacity:.9}
+  100%{transform:translateY(-110vh) rotate(35deg);opacity:0}
+}
+
+.bigheart{
+  font-size:4rem;
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  50%{transform:scale(1.12)}
+}
+
+/* ENVELOPE */
+
+.envelope-area{
+  width:min(310px,85vw);
+  height:220px;
+  position:relative;
+  margin:25px auto;
+}
+
+.envelope{
+  position:absolute;
+  inset:35px 0 0;
+  background:#f4a1bd;
+  box-shadow:0 12px 30px #ac527322;
+}
+
+.paper{
+  position:absolute;
+  left:8%;
+  width:84%;
+  height:155px;
+  bottom:10px;
+  background:#fffdf8;
+  border-radius:5px;
+  display:grid;
+  place-items:center;
+  color:#b52e6c;
+  font-size:1.25rem;
+  transition:transform .8s;
+}
+
+.front{
+  position:absolute;
+  inset:0;
+  background:#f8bad0;
+  clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);
+}
+
+.flap{
+  position:absolute;
+  inset:0 0 auto;
+  height:140px;
+  background:#ffdae6;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:top;
+  transition:transform .7s;
+}
+
+.seal{
+  position:absolute;
+  z-index:3;
+  top:85px;
+  left:calc(50% - 22px);
+  font-size:30px;
+  transition:opacity .3s;
+}
+
+.envelope-area.open .flap{transform:rotateX(180deg)}
+.envelope-area.open .paper{transform:translateY(-80px)}
+.envelope-area.open .seal{opacity:0}
+
+/* LETTER */
+
+.letter{
+  width:min(590px,100%);
+  background:#fffaf6;
+  border:1px solid #f3c4d8;
+  border-radius:20px;
+  padding:clamp(22px,6vw,38px);
+  text-align:left;
+  box-shadow:0 15px 45px #8d3d6320;
+}
+
+.letter p{margin-bottom:16px}
+
+.hello{
+  font-size:1.45rem;
+  color:#b52f70;
+  font-weight:bold;
+}
+
+.signature{
+  text-align:right;
+  color:#b52f70;
+  margin-top:22px;
+}
+
+/* BALLOONS */
+
+.balloon-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:15px;
+  width:min(440px,100%);
+  margin:20px auto;
+}
+
+.balloon-wrap{
+  min-height:210px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+}
+
+.balloon{
+  width:108px;
+  height:132px;
+  border:0;
+  border-radius:52% 52% 48% 48%;
+  color:white;
+  position:relative;
+  box-shadow:inset -10px -8px 15px #0001;
+  animation:bob 2s ease-in-out infinite alternate;
+}
+
+.balloon:before{
+  content:"";
+  position:absolute;
+  left:17px;
+  top:18px;
+  width:12px;
+  height:25px;
+  background:#ffffff80;
+  border-radius:50%;
+  transform:rotate(25deg);
+}
+
+.balloon:after{
+  content:"";
+  position:absolute;
+  bottom:-10px;
+  left:calc(50% - 8px);
+  border-left:8px solid transparent;
+  border-right:8px solid transparent;
+  border-top:12px solid #e86eaa;
+}
+
+.balloon span{
+  display:block;
+  position:relative;
+  z-index:1;
+}
+
+@keyframes bob{
+  from{transform:translateY(0)}
+  to{transform:translateY(-10px) rotate(3deg)}
+}
+
+.balloon.popped{animation:pop .25s forwards}
+
+@keyframes pop{
+  to{transform:scale(1.7);opacity:0}
+}
+
+.teddy-result{
+  display:none;
+  width:100%;
+  max-width:205px;
+}
+
+.teddy-result.show{
+  display:block;
+  animation:fade .5s ease;
+}
+
+.teddy{font-size:4rem;line-height:1.2}
+
+.teddy-note{
+  background:#fff8fb;
+  border:1px solid #f2c5d7;
+  border-radius:15px;
+  padding:12px;
+  margin-top:8px;
+}
+
+.teddy-note strong{color:#b52f70}
+.teddy-note p{font-size:.92rem;margin-top:7px}
+
+.progress{font-size:.9rem;color:#995574}
+
+/* FINAL SCREEN */
+
+.finalcard{
+  width:min(500px,100%);
+  background:#fffaf7ed;
+  border:1px solid #f3bfd4;
+  border-radius:22px;
+  padding:25px;
+  box-shadow:0 15px 40px #9e4a7020;
+}
+
+.finalcard p{margin:14px 0}
+
+.hidden{display:none}
+.hidden.show{display:block;animation:fade .6s ease}
+
+@media(max-width:390px){
+  .balloon{width:95px;height:120px}
+  .balloon-grid{gap:8px}
+  .letter{padding:22px 18px}
+  p{font-size:.97rem}
+}
+</style>
+</head>
+
+<body>
+
+<div id="hearts"></div>
+
+<button class="music" id="musicBtn" type="button">
+  ♫ Music: Off
+</button>
+
+<!-- SCREEN 1: WELCOME -->
+
+<section class="screen active" id="welcome">
+
+  <div class="eyebrow">A little surprise made with love</div>
+
+  <div class="bigheart">💗</div>
+
+  <h1>Hey, Dude & Rekla!</h1>
+
+  <p class="sub">
+    Welcome, my lovely college friends! 🫶
+    <br><br>
+    I made something special for you both.
+    There are some words I wanted to say,
+    memories to celebrate, and a little surprise waiting inside.
+  </p>
+
+  <p class="sub">Ready to open it? 🎁</p>
+
+  <button class="btn" id="startBtn">
+    Start Your Surprise 💌
+  </button>
+
+  <p style="font-size:.85rem">Made especially for you, with love ❤️</p>
+
+</section>
+
+<!-- SCREEN 2: ENVELOPE -->
+
+<section class="screen" id="envelopeScreen">
+
+  <div class="eyebrow">A letter from my heart</div>
+
+  <h2>Something for You 💌</h2>
+
+  <p class="sub">Tap the envelope to open it!</p>
+
+  <div class="envelope-area" id="envelope">
+
+    <div class="envelope">
+      <div class="paper">For Dude & Rekla 💗</div>
+      <div class="front"></div>
+      <div class="flap"></div>
+      <div class="seal">💗</div>
+    </div>
+
+  </div>
+
+  <button class="btn" id="openLetterBtn">
+    Open My Letter 💌
+  </button>
+
+</section>
+
+<!-- SCREEN 3: THANK-YOU LETTER -->
+
+<section class="screen" id="letterScreen">
+
+  <div class="eyebrow">From Dharshini, with love</div>
+
+  <h2>A Little Thank You ❤️</h2>
+
+  <article class="letter">
+
+    <p class="hello">Hey, Dude and Rekla! 🫂</p>
+
+    <p>
+      First of all, thank you both for being a part
+      of my college journey! 💗
+    </p>
+
+    <p>
+      College becomes more memorable because of the people
+      we meet along the way. I'm happy that I got to know
+      you both and share little moments, laughter, and memories
+      with you.
+    </p>
+
+    <p>
+      Thank you for being my college friends, for the fun
+      moments, and for all the little things that make our
+      days more special.
+    </p>
+
+    <p>
+      Every friendship is different, and both of you have
+      your own special place in my college memories.
+      I hope we keep making more memories, laughing over
+      silly things, helping each other, and enjoying our
+      college days.
+    </p>
+
+    <p>
+      Even when college ends and life takes us in different
+      directions, I hope we remember these days with a smile.
+      🥹
+    </p>
+
+    <p>
+      Dude, thank you for being part of my college journey.
+      Rekla, thank you for being part of my memories too.
+      You both make this chapter of my life more memorable
+      in your own ways.
+    </p>
+
+    <p>
+      <strong>
+        Thank you, Dude and Rekla, for being part of my story.
+        I'm genuinely grateful to have you both as my college
+        friends! 💕
+      </strong>
+    </p>
+
+    <p>
+      Now, your little teddy friends are waiting!
+      Pop the balloons to hear their messages. 🎈🧸
+    </p>
+
+    <div class="signature">
+      With love,<br>
+      <strong>Dharshini 💗</strong>
+    </div>
+
+  </article>
+
+  <button class="btn" id="toBalloonsBtn">
+    Meet Your Teddies 🎈
+  </button>
+
+</section>
+
+<!-- SCREEN 4: POP THE BALLOONS -->
+
+<section class="screen" id="balloonScreen">
+
+  <div class="eyebrow">Pop a balloon, unlock a hug</div>
+
+  <h2>Little Messages for You 🎈</h2>
+
+  <p class="sub">
+    Tap each balloon to reveal a cute teddy
+    and a special friendship message!
+  </p>
+
+  <div class="balloon-grid">
+
+    <!-- BALLOON 1 -->
+
+    <div class="balloon-wrap">
+
+      <button class="balloon"
+        style="background:#ff7ba6"
+        aria-label="Pop pink balloon">
+        <span>Pop me! 💗</span>
+      </button>
+
+      <div class="teddy-result">
+
+        <div class="teddy">🧸</div>
+
+        <div class="teddy-note">
+          <strong>Thank You, Dude!</strong>
+          <p>
+            Thank you for being part of my college journey.
+            I hope we make many more fun memories together! 💕
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- BALLOON 2 -->
+
+    <div class="balloon-wrap">
+
+      <button class="balloon"
+        style="background:#a88bfa"
+        aria-label="Pop purple balloon">
+        <span>Pop me! 💜</span>
+      </button>
+
+      <div class="teddy-result">
+
+        <div class="teddy">🧸</div>
+
+        <div class="teddy-note">
+          <strong>Thank You, Rekla!</strong>
+          <p>
+            Thank you for being part of my college memories.
+            Here's to more laughs, friendship, and happiness! 🌷
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- BALLOON 3 -->
+
+    <div class="balloon-wrap">
+
+      <button class="balloon"
+        style="background:#ffad69"
+        aria-label="Pop orange balloon">
+        <span>Pop me! 🧡</span>
+      </button>
+
+      <div class="teddy-result">
+
+        <div class="teddy">🧸</div>
+
+        <div class="teddy-note">
+          <strong>Our College Memories!</strong>
+          <p>
+            The little moments, silly jokes, and everyday
+            college memories can become the best stories
+            to remember someday. ✨
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- BALLOON 4 -->
+
+    <div class="balloon-wrap">
+
+      <button class="balloon"
+        style="background:#65cbb5"
+        aria-label="Pop green balloon">
+        <span>Pop me! 💚</span>
+      </button>
+
+      <div class="teddy-result">
+
+        <div class="teddy">🧸</div>
+
+        <div class="teddy-note">
+          <strong>A Message for Both!</strong>
+          <p>
+            Dude and Rekla, I wish you both happiness,
+            success, peace, and beautiful memories
+            in every chapter of life. 🫶
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <p class="progress" id="progress">
+    Balloons opened: 0 of 4
+  </p>
+
+  <button class="btn" id="finalBtn" style="display:none">
+    One Last Surprise 💖
+  </button>
+
+</section>
+
+<!-- SCREEN 5: FINAL SURPRISE -->
+
+<section class="screen" id="finalScreen">
+
+  <div class="bigheart">💖</div>
+
+  <div class="eyebrow">A thousand little thank-yous</div>
+
+  <h1>Thank You Both!</h1>
+
+  <div class="finalcard">
+
+    <div style="font-size:4.5rem">🧸💐</div>
+
+    <h2>Dear Dude & Rekla</h2>
+
+    <p>
+      If I could give you both one gift, it would be the
+      chance to see our friendship through my eyes.
+    </p>
+
+    <p>
+      Then you would understand why I'm thankful for you,
+      why our memories matter to me, and why I'm happy
+      to have met you both.
+    </p>
+
+    <p>
+      College is one chapter of life, but the memories we
+      make and the people we meet can stay special long
+      after that chapter ends.
+    </p>
+
+    <p style="font-weight:bold;color:#b52e70">
+      Thank you, Dude and Rekla, for being part of my story.
+      I'm grateful to have you both as my college friends! ❤️
+    </p>
+
+    <div class="hidden" id="extraMessage">
+
+      <h2 style="margin-top:20px">A Big Teddy Hug! 🧸</h2>
+
+      <p>
+        Sending you both the biggest virtual hug ever!
+        May your days be filled with laughter, your hearts
+        with peace, and your futures with beautiful things.
+      </p>
+
+      <p>
+        Keep smiling, keep growing, and keep making
+        wonderful memories. 💗
+      </p>
+
+      <p><strong>With love, Dharshini 🌷</strong></p>
+
+    </div>
+
+    <button class="btn" id="hugBtn">
+      Give Us One More Hug 🧸
+    </button>
+
+  </div>
+
+  <button class="btn" id="restartBtn">
+    Experience It Again 💌
+  </button>
+
+  <p style="font-size:.85rem;margin-top:15px">
+    Two friends. Many memories. One big thank you. 💗
+  </p>
+
+</section>
+
+<script>
+/* SCREEN NAVIGATION */
+
+const screens = [...document.querySelectorAll(".screen")];
+
+function go(id) {
+  screens.forEach(screen => {
+    screen.classList.toggle("active", screen.id === id);
+  });
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* WELCOME */
+
+document.getElementById("startBtn").addEventListener("click", () => {
+  go("envelopeScreen");
+  startMusic();
+});
+
+/* ENVELOPE */
+
+let envelopeOpened = false;
+
+document.getElementById("openLetterBtn").addEventListener("click", () => {
+
+  const envelope = document.getElementById("envelope");
+  const button = document.getElementById("openLetterBtn");
+
+  if (!envelopeOpened) {
+    envelope.classList.add("open");
+    envelopeOpened = true;
+    button.textContent = "Read Your Letter ❤️";
+  } else {
+    go("letterScreen");
+  }
+
+});
+
+/* LETTER TO BALLOONS */
+
+document.getElementById("toBalloonsBtn").addEventListener("click", () => {
+  go("balloonScreen");
+  burstHearts(10);
+});
+
+/* BALLOON POP AND TEDDY REVEAL */
+
+let poppedCount = 0;
+
+document.querySelectorAll(".balloon-wrap").forEach(wrap => {
+
+  const balloon = wrap.querySelector(".balloon");
+  const teddy = wrap.querySelector(".teddy-result");
+
+  balloon.addEventListener("click", () => {
+
+    if (balloon.classList.contains("popped")) return;
+
+    balloon.classList.add("popped");
+    burstHearts(6);
+
+    setTimeout(() => {
+
+      balloon.style.display = "none";
+      teddy.classList.add("show");
+      poppedCount++;
+
+      document.getElementById("progress").textContent =
+        "Balloons opened: " + poppedCount + " of 4";
+
+      if (poppedCount === 4) {
+
+        document.getElementById("progress").textContent =
+          "You found all four teddy messages! 🧸💗";
+
+        document.getElementById("finalBtn").style.display =
+          "inline-block";
+
+        burstHearts(15);
+
+      }
+
+    },250);
+
+  });
+
+});
+
+/* FINAL SCREEN */
+
+document.getElementById("finalBtn").addEventListener("click", () => {
+  go("finalScreen");
+  burstHearts(25);
+});
+
+document.getElementById("hugBtn").addEventListener("click", () => {
+
+  document.getElementById("extraMessage").classList.add("show");
+
+  document.getElementById("hugBtn").textContent =
+    "Biggest Hug Sent! 🫂";
+
+  burstHearts(25);
+
+});
+
+/* RESTART EVERYTHING */
+
+document.getElementById("restartBtn").addEventListener("click", () => {
+
+  envelopeOpened = false;
+  poppedCount = 0;
+
+  document.getElementById("envelope").classList.remove("open");
+
+  document.getElementById("openLetterBtn").textContent =
+    "Open My Letter 💌";
+
+  document.querySelectorAll(".balloon-wrap").forEach(wrap => {
+
+    const balloon = wrap.querySelector(".balloon");
+    const teddy = wrap.querySelector(".teddy-result");
+
+    balloon.style.display = "block";
+    balloon.classList.remove("popped");
+    teddy.classList.remove("show");
+
+  });
+
+  document.getElementById("progress").textContent =
+    "Balloons opened: 0 of 4";
+
+  document.getElementById("finalBtn").style.display = "none";
+
+  document.getElementById("extraMessage").classList.remove("show");
+
+  document.getElementById("hugBtn").textContent =
+    "Give Us One More Hug 🧸";
+
+  go("welcome");
+
+});
+
+/* FLOATING HEARTS */
+
+const heartLayer = document.getElementById("hearts");
+
+function createHeart() {
+
+  const heart = document.createElement("span");
+
+  heart.className = "heart";
+
+  const symbols = ["💗","💕","💖","🌸","♡","❤️"];
+
+  heart.textContent =
+    symbols[Math.floor(Math.random() * symbols.length)];
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (15 + Math.random() * 18) + "px";
+  heart.style.animationDuration = (6 + Math.random() * 6) + "s";
+
+  heartLayer.appendChild(heart);
+
+  setTimeout(() => heart.remove(),13000);
+
+}
+
+setInterval(createHeart,650);
+
+function burstHearts(number) {
+
+  for (let i=0; i<number; i++) {
+    setTimeout(createHeart,i*75);
+  }
+
+}
+
+/* ORIGINAL SOFT SYNTHESIZED MELODY */
+
+let audio = null;
+let gain = null;
+let timer = null;
+let musicOn = false;
+let noteIndex = 0;
+
+const musicBtn = document.getElementById("musicBtn");
+
+const melody = [
+  261.63,329.63,392,329.63,
+  293.66,349.23,440,349.23,
+  261.63,329.63,392,523.25,
+  440,392,329.63,293.66
+];
+
+function playNote(frequency) {
+
+  if (!audio || !gain) return;
+
+  const oscillator = audio.createOscillator();
+  const volume = audio.createGain();
+  const now = audio.currentTime;
+
+  oscillator.type = "sine";
+  oscillator.frequency.value = frequency;
+
+  volume.gain.setValueAtTime(0.0001,now);
+  volume.gain.exponentialRampToValueAtTime(0.035,now+0.08);
+  volume.gain.exponentialRampToValueAtTime(0.0001,now+0.55);
+
+  oscillator.connect(volume);
+  volume.connect(gain);
+
+  oscillator.start(now);
+  oscillator.stop(now+0.6);
+
+}
+
+async function startMusic() {
+
+  try {
+
+    if (!audio) {
+
+      const AudioClass =
+        window.AudioContext || window.webkitAudioContext;
+
+      if (!AudioClass) {
+        musicBtn.textContent = "♫ Music unavailable";
+        return;
+      }
+
+      audio = new AudioClass();
+      gain = audio.createGain();
+      gain.gain.value = 0.8;
+      gain.connect(audio.destination);
+
+    }
+
+    await audio.resume();
+
+    if (musicOn) return;
+
+    musicOn = true;
+
+    playNote(melody[noteIndex++ % melody.length]);
+
+    timer = setInterval(() => {
+
+      if (musicOn) {
+        playNote(melody[noteIndex++ % melody.length]);
+      }
+
+    },650);
+
+    musicBtn.textContent = "♫ Music: On";
+
+  } catch (error) {
+
+    musicBtn.textContent = "♫ Tap to retry";
+
+  }
+
+}
+
+function stopMusic() {
+
+  musicOn = false;
+
+  if (timer) clearInterval(timer);
+
+  timer = null;
+  musicBtn.textContent = "♫ Music: Off";
+
+}
+
+musicBtn.addEventListener("click", async () => {
+
+  if (musicOn) {
+    stopMusic();
+  } else {
+    await startMusic();
+  }
+
+});
+
+</script>
+
+</body>
+</html>
